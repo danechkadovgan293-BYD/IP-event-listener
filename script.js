@@ -1,8 +1,27 @@
-const sumLine   = document.getElementById('sumLine');
+const sumLine = document.getElementById('sumLine');
 const countLine = document.getElementById('countLine');
 
-let totalSum = 0;
-let totalCnt = 0;
+const numbers = {
+    sum: 0,
+    count: 0,
+
+    add(n) {
+        this.sum += n;
+        this.count += 1;
+        this.show();
+    },
+
+    remove(n) {
+        this.sum -= n;
+        this.count -= 1;
+        this.show();
+    },
+
+    show() {
+        sumLine.textContent = this.sum;
+        countLine.textContent = this.count;
+    }
+};
 
 for (const cell of document.querySelectorAll('.item')) {
     cell.addEventListener('click', () => {
@@ -10,15 +29,10 @@ for (const cell of document.querySelectorAll('.item')) {
 
         if (cell.classList.contains('chosen')) {
             cell.classList.remove('chosen');
-            totalSum -= n;
-            totalCnt -= 1;
+            numbers.remove(n);
         } else {
             cell.classList.add('chosen');
-            totalSum += n;
-            totalCnt += 1;
+            numbers.add(n);
         }
-
-        sumLine.textContent   = totalSum;
-        countLine.textContent = totalCnt;
     });
 }
